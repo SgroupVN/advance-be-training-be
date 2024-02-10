@@ -8,8 +8,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import {Role} from 'src/account-service/authorization/client';
-import {Exclude} from 'class-transformer';
+import { Role } from 'src/account-service/authorization/client';
+import { Exclude } from 'class-transformer';
 
 @Entity({
   name: 'users',

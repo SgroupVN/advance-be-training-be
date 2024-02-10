@@ -2,11 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {
-  initializeTransactionalContext,
-  patchTypeORMRepositoryWithBaseRepository,
-  patchTypeORMTreeRepositoryWithBaseTreeRepository,
-} from 'typeorm-transactional-cls-hooked';
-import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
@@ -19,10 +14,6 @@ import { logAppScaffold } from './system/utils';
 import { EnvironmentKeyFactory } from './system/services';
 
 async function bootstrap() {
-  initializeTransactionalContext();
-  patchTypeORMRepositoryWithBaseRepository();
-  patchTypeORMTreeRepositoryWithBaseTreeRepository();
-
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),

@@ -8,6 +8,7 @@ export function extractOrigins(rawConfigString: string | undefined) {
   if (!rawConfigString) {
     return ALLOW_ALL_ORIGINS;
   }
+
   return EnvLoaderUtils.loadMany(rawConfigString);
 }
 
