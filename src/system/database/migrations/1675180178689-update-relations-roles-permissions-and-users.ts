@@ -46,14 +46,6 @@ export class UpdateRelationsRolesPermissionsAndUsers1675180178689
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKeys('roles', [
-      new TableForeignKey({
-        columnNames: ['update_by_user_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'users',
-      }),
-    ]);
-
     await queryRunner.dropForeignKeys('roles_permissions', [
       new TableForeignKey({
         columnNames: ['role_id'],

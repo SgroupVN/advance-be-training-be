@@ -1,12 +1,10 @@
 import {
   Column,
   Entity,
-  JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Role } from './role.entity';
-import { Menu } from '../../../../system/menu';
 
 @Entity({
   name: 'permissions',
@@ -32,18 +30,4 @@ export class Permission {
 
   @ManyToMany(() => Role, (role) => role.permissions)
   roles?: Role[];
-
-  @ManyToMany(() => Menu, (settings) => settings.permissionSettings)
-  @JoinTable({
-    name: 'menu_settings',
-    joinColumn: {
-      name: 'permission_id',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'menu_id',
-      referencedColumnName: 'id',
-    },
-  })
-  menuSettings: Menu[];
 }
