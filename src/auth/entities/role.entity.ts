@@ -1,3 +1,4 @@
+import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   Entity,
@@ -6,8 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../../../user';
-import { Permission } from 'src/account-service/authorization/client/entities/permission.entity';
+import { Permission } from './permission.entity';
 
 @Entity({
   name: 'roles',

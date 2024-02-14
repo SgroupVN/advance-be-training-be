@@ -1,11 +1,23 @@
 import { In, MigrationInterface, QueryRunner } from 'typeorm';
-import {
-  SystemRoles,
-  Role,
-  AccessRights,
-} from '../../../account-service/authorization';
-import { Permission } from 'src/account-service/authorization/client/entities/permission.entity';
 import keyBy from 'lodash/keyBy';
+import { Role } from 'src/auth/entities/role.entity';
+import { Permission } from 'src/auth/entities/permission.entity';
+
+export enum SystemRoles {
+  CHAIRMAN = 'Chairman',
+  DOMAIN_CHIEF = 'Domain Chief',
+  DOMAIN_LEADER = 'Domain Leader',
+  MEMBER = 'Member',
+}
+
+export enum AccessRights {
+  VIEW_USERS = 'View users',
+  EDIT_MEMBER_USER = 'Edit member user',
+  VIEW_ACCESS_RIGHTS = 'View access rights',
+  EDIT_ACCESS_RIGHTS = 'Edit access rights',
+  MANAGE_RECRUITMENT = 'Manage recruitments',
+}
+
 
 export class SeedRoles1657339599214 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

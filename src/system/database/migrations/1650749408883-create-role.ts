@@ -33,11 +33,6 @@ export class CreateRoleAndPermission1650749408883
             default: 'now()',
           },
           {
-            name: 'update_by_user_id',
-            type: 'uuid',
-            isNullable: true,
-          },
-          {
             name: 'is_editable',
             type: 'boolean',
             default: true,

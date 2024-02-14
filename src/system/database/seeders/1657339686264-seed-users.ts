@@ -1,8 +1,9 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
-import { SystemRoles, Role } from '../../../account-service/authorization';
-import { User } from '../../../account-service/user';
 import { DigestService, EnvironmentKeyFactory } from '../../services';
+import { SystemRoles } from './1657339599214-seed-roles';
+import { User } from 'src/users/entities/user.entity';
+import { Role } from 'src/auth/entities/role.entity';
 
 export class SeedUsers1657339686264 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
