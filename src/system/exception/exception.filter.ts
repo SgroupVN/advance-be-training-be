@@ -8,8 +8,6 @@ import {
 } from '@nestjs/common';
 import { FastifyReply } from 'fastify';
 import { SystemExceptionClientCode } from './exception-client-code.constant';
-import { HttpToClientCodeMapper } from './mapper/http-to-client-code.mapper';
-import { Mapper } from '../client/mapper.interface';
 import { isClientException } from './factories';
 
 @Catch()
@@ -17,8 +15,6 @@ export class ClientExceptionFilter implements ExceptionFilter {
   private static readonly logger: Logger = new Logger(
     ClientExceptionFilter.name,
   );
-  private static readonly httpClientMapper: Mapper<HttpStatus, string> =
-    new HttpToClientCodeMapper();
 
   catch(exception: HttpException | Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
@@ -49,12 +45,8 @@ export class ClientExceptionFilter implements ExceptionFilter {
     }
 
     if (exception.getStatus() !== HttpStatus.INTERNAL_SERVER_ERROR) {
-      const clientCode = ClientExceptionFilter.httpClientMapper.from(
-        exception.getStatus(),
-      );
-
       response.status(status).send({
-        errorCode: clientCode,
+        errorCode: exception.getStatus() + '',
         statusCode: status,
         message: (errorResponse as { message: string }).message,
       });

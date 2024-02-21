@@ -1,6 +1,5 @@
 import { INestApplication, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { EnvLoaderUtils } from './env-loader.utils';
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 
 export function extractOrigins(rawConfigString: string | undefined) {
@@ -9,7 +8,7 @@ export function extractOrigins(rawConfigString: string | undefined) {
     return ALLOW_ALL_ORIGINS;
   }
 
-  return EnvLoaderUtils.loadMany(rawConfigString);
+  return rawConfigString.trim().split(',');
 }
 
 export async function logAppScaffold(app: INestApplication) {
