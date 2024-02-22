@@ -18,7 +18,6 @@ export enum AccessRights {
   MANAGE_RECRUITMENT = 'Manage recruitments',
 }
 
-
 export class SeedRoles1657339599214 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const roleRepository = queryRunner.manager.getRepository(Role);
