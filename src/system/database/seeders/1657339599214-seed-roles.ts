@@ -15,7 +15,6 @@ export enum AccessRights {
   EDIT_MEMBER_USER = 'Edit member user',
   VIEW_ACCESS_RIGHTS = 'View access rights',
   EDIT_ACCESS_RIGHTS = 'Edit access rights',
-  MANAGE_RECRUITMENT = 'Manage recruitments',
 }
 
 export class SeedRoles1657339599214 implements MigrationInterface {
@@ -59,10 +58,6 @@ export class SeedRoles1657339599214 implements MigrationInterface {
       {
         name: AccessRights.EDIT_ACCESS_RIGHTS,
         description: 'Edit roles of system',
-      },
-      {
-        name: AccessRights.MANAGE_RECRUITMENT,
-        description: 'Manage recruitment',
       },
     ]);
     const nameMapToRoles = keyBy(savedRoles, 'name');
