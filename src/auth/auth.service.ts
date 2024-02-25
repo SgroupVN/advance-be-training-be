@@ -5,6 +5,7 @@ import { DigestService } from '../system/services';
 import { UsersService } from '../users/users.service';
 import { InvalidLoginException } from './exceptions/invalid-login.exception';
 import { JwtService } from '@nestjs/jwt';
+import { CurrentUserVO } from './valueObject/currentUser.vo';
 
 @Injectable()
 export class AuthService {
@@ -27,7 +28,9 @@ export class AuthService {
     }
 
     return {
-      accessToken: await this.jwtService.signAsync({ userId: user.id }),
+      accessToken: await this.jwtService.signAsync({
+        userId: user.id,
+      } as CurrentUserVO),
     };
   }
 }
