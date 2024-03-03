@@ -1,10 +1,20 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CurrentUser } from '../auth/user.decorator';
 import { CurrentUserVO } from '../auth/valueObject/currentUser.vo';
 import { Identified } from '../auth/identified.decorator';
+import { CanAccessBy } from '../auth/can-access-by.decorator';
+import { AccessRights } from '../system/database/seeders/1657339599214-seed-roles';
 
 @Controller('users')
 export class UsersController {
@@ -16,8 +26,8 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Identified
   @Get()
+  @CanAccessBy(AccessRights.VIEW_USERS)
   findAll(@CurrentUser() user: CurrentUserVO) {
     console.log(user);
     return this.usersService.findAll();

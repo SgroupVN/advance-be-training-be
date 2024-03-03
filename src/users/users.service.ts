@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
@@ -54,5 +54,22 @@ export class UsersService {
 
   remove(id: number) {
     return `This action removes a #${id} user`;
+  }
+
+  async getRightsByUserId(userId: string) {
+    const user = await this.userRepository.findOne({
+      relations: ['roles', 'roles.permissions'],
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('Missing user');
+    }
+
+    return user.roles
+      .map((role) => role.permissions.map((per) => per.name))
+      .flat();
   }
 }

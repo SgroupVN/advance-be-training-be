@@ -13,7 +13,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/login')
-  @UsePipes(ValidationPipe)
+  @UsePipes(new ValidationPipe())
   login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }

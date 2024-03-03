@@ -6,6 +6,7 @@ import { UsersService } from '../users/users.service';
 import { InvalidLoginException } from './exceptions/invalid-login.exception';
 import { JwtService } from '@nestjs/jwt';
 import { CurrentUserVO } from './valueObject/currentUser.vo';
+import { AuthorService } from './author.service';
 
 @Injectable()
 export class AuthService {
@@ -13,12 +14,12 @@ export class AuthService {
     private readonly digestService: DigestService,
     private readonly userService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly authorService: AuthorService,
   ) {}
 
   async login(authDto: LoginDto): Promise<UserCredentialsDto> {
     const user = await this.userService.findByUsername(authDto.username);
 
-    // Guard clause
     if (!user) {
       throw new InvalidLoginException();
     }
@@ -26,6 +27,8 @@ export class AuthService {
     if (!(await this.digestService.compare(user.password, authDto.password))) {
       throw new InvalidLoginException();
     }
+
+    await this.authorService.saveUserRights(user.id);
 
     return {
       accessToken: await this.jwtService.signAsync({
